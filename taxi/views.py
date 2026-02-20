@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView
 
+from .forms import FormManufacturer, FormCar
 from .models import Driver, Car, Manufacturer
 
 
@@ -31,21 +32,19 @@ def index(request):
 
 class ManufacturerListView(LoginRequiredMixin, generic.ListView):
     model = Manufacturer
-    context_object_name = "manufacturer_list"
-    template_name = "taxi/manufacturer_list.html"
     paginate_by = 5
 
 
 class ManufacturerCreateView(LoginRequiredMixin, CreateView):
     model = Manufacturer
-    fields = "__all__"
+    form_class = FormManufacturer
     template_name = "taxi/create_manufacturer.html"
     success_url = reverse_lazy("taxi:manufacturer-list")
 
 
 class ManufacturerUpdateView(LoginRequiredMixin, UpdateView):
     model = Manufacturer
-    fields = "__all__"
+    form_class = FormManufacturer
     template_name = "taxi/create_manufacturer.html"
     success_url = reverse_lazy("taxi:manufacturer-list")
 
@@ -78,14 +77,14 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
 
 class CarCreateView(LoginRequiredMixin, CreateView):
     model = Car
-    fields = "__all__"
+    form_class = FormCar
     template_name = "taxi/create_car.html"
     success_url = reverse_lazy("taxi:car-list")
 
 
 class CarUpdateView(LoginRequiredMixin, UpdateView):
     model = Car
-    fields = "__all__"
+    form_class = FormCar
     template_name = "taxi/create_car.html"
     success_url = reverse_lazy("taxi:car-list")
 
